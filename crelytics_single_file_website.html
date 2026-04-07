@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRElytics | AI for Commercial Real Estate</title>
+  <meta name="description" content="CRElytics helps commercial real estate investors, owners, and operators make smarter leasing and underwriting decisions with AI-powered pricing, tenant risk, and deal analysis." />
+  <style>
+    :root {
+      --bg: #081120;
+      --bg-2: #0d1830;
+      --panel: rgba(255, 255, 255, 0.08);
+      --panel-strong: rgba(255, 255, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.14);
+      --text: #eef4ff;
+      --muted: #a9b6d3;
+      --blue: #6ea8fe;
+      --cyan: #66f0d2;
+      --green: #71f4a2;
+      --yellow: #ffd166;
+      --red: #ff8c8c;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(110,168,254,0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(102,240,210,0.14), transparent 28%),
+        linear-gradient(180deg, #050b16 0%, #0b1428 45%, #081120 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(8, 17, 32, 0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      display: grid;
+      place-items: center;
+      color: #07101c;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-weight: 700;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      color: #06101b;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      box-shadow: 0 12px 28px rgba(110, 168, 254, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .hero {
+      padding: 72px 0 52px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--cyan);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.02;
+      margin: 0 0 18px;
+      letter-spacing: -1.8px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      max-width: 660px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.55rem;
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .dashboard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: rgba(7, 14, 28, 0.62);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 128px;
+    }
+
+    .mini-title {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .big-number {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .trend {
+      font-size: 0.92rem;
+      color: var(--green);
+    }
+
+    .chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 150px;
+      padding-top: 12px;
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 12px 12px 4px 4px;
+      background: linear-gradient(180deg, var(--cyan), var(--blue));
+      opacity: 0.95;
+      position: relative;
+    }
+
+    .bar span {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 32px 0 74px;
+    }
+
+    .section-head {
+      max-width: 700px;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin: 0 0 10px;
+      letter-spacing: -1px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card, .problem-card, .pricing-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(102,240,210,0.22), rgba(110,168,254,0.22));
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 1.1rem;
+    }
+
+    .feature-card h3, .problem-card h3, .pricing-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+    }
+
+    .feature-card p, .problem-card p, .pricing-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .demo-shell {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.13);
+      background: rgba(6, 14, 26, 0.8);
+      color: var(--text);
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(110,168,254,0.15);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .result-card {
+      background: rgba(7, 14, 28, 0.62);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .result-value {
+      font-size: 1.55rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .result-note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .score-low { color: var(--green); }
+    .score-medium { color: var(--yellow); }
+    .score-high { color: var(--red); }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .step {
+      padding: 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .step-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #07101c;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(110,168,254,0.38);
+      transform: translateY(-6px);
+      background: linear-gradient(180deg, rgba(110,168,254,0.14), rgba(255,255,255,0.08));
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 10px 0 14px;
+    }
+
+    .pricing-card ul {
+      margin: 0 0 20px;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cta {
+      padding: 0 0 76px;
+    }
+
+    .cta-card {
+      padding: 34px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(102,240,210,0.16), rgba(110,168,254,0.16));
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-card h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+    }
+
+    .cta-card p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.7;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 22px 0 34px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .demo-shell,
+      .dashboard-grid,
+      .pricing-grid,
+      .how-grid,
+      .grid-3,
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-metrics,
+      .results-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav { flex-wrap: wrap; padding: 14px 0; }
+      .nav-links { width: 100%; justify-content: space-between; gap: 12px; overflow-x: auto; }
+      .hero { padding-top: 46px; }
+      .hero-metrics,
+      .results-grid { grid-template-columns: 1fr; }
+      .cta-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <div class="logo">C</div>
+        <div>CRElytics</div>
+      </a>
+      <div class="nav-links">
+        <a href="#problems">Problems</a>
+        <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
+        <a href="#how">How It Works</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <a href="#demo" class="btn btn-primary">Try Demo</a>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">AI-Powered Commercial Real Estate Decisions</div>
+          <h1>Price leases smarter. Underwrite deals faster. See risk before it hits returns.</h1>
+          <p>
+            CRElytics helps owners, operators, and investors replace gut-based leasing and static spreadsheets with real-time rent recommendations, tenant risk forecasts, and instant underwriting insights.
+          </p>
+          <div class="hero-actions">
+            <a href="#demo" class="btn btn-primary">Analyze a Property</a>
+            <a href="#features" class="btn btn-secondary">See Platform Features</a>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric">
+              <strong>+11.8%</strong>
+              <span>Average projected NOI uplift from optimized rent strategies</span>
+            </div>
+            <div class="metric">
+              <strong>78%</strong>
+              <span>Modeled tenant renewal prediction accuracy in demo scenarios</span>
+            </div>
+            <div class="metric">
+              <strong>10 min</strong>
+              <span>From property input to pricing, risk, and underwriting output</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="dashboard-top">
+            <div>
+              <div style="font-weight: 800; font-size: 1.05rem;">CRElytics Decision Dashboard</div>
+              <div style="color: var(--muted); margin-top: 4px; font-size: 0.95rem;">Nashville Office Asset | Q2 Leasing Review</div>
+            </div>
+            <div class="pill">Live Model</div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="mini-card">
+              <div class="mini-title">Recommended Asking Rent</div>
+              <div class="big-number">$31.80 / SF</div>
+              <div class="trend">↑ 6.4% above current pricing</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title">Tenant Renewal Probability</div>
+              <div class="big-number">74%</div>
+              <div class="trend">Stable based on market + lease inputs</div>
+            </div>
+            <div class="mini-card" style="grid-column: 1 / -1; min-height: 230px;">
+              <div class="mini-title">Market Rent Trend</div>
+              <div class="chart">
+                <div class="bar" style="height: 44%;"><span>Jan</span></div>
+                <div class="bar" style="height: 49%;"><span>Feb</span></div>
+                <div class="bar" style="height: 54%;"><span>Mar</span></div>
+                <div class="bar" style="height: 58%;"><span>Apr</span></div>
+                <div class="bar" style="height: 65%;"><span>May</span></div>
+                <div class="bar" style="height: 72%;"><span>Jun</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problems" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Commercial real estate still runs on outdated decisions</h2>
+          <p>
+            Owners and investors are dealing with rising vacancies, refinancing pressure, and market uncertainty. But many leasing and underwriting decisions are still made using stale comps, manual spreadsheets, and gut instinct.
+          </p>
+        </div>
+
+        <div class="problem-grid">
+          <div class="problem-card">
+            <h3>Rent pricing is often reactive</h3>
+            <p>Teams rely on broker opinions and historical comps instead of dynamic market signals, causing either lost revenue or unnecessary vacancy.</p>
+          </div>
+          <div class="problem-card">
+            <h3>Tenant risk is hard to quantify</h3>
+            <p>Operators often lack a clear way to estimate renewal risk, churn, or default probability before lease decisions are made.</p>
+          </div>
+          <div class="problem-card">
+            <h3>Underwriting is too manual</h3>
+            <p>Deals can still take hours of spreadsheet work, with assumptions scattered across tabs and little connection to real-time market conditions.</p>
+          </div>
+          <div class="problem-card">
+            <h3>Teams miss early warning signs</h3>
+            <p>By the time risks show up in occupancy or collections, the best options to improve asset performance are already gone.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>One platform for pricing, leasing, and risk</h2>
+          <p>
+            CRElytics combines market analytics, lease intelligence, and AI recommendations to help teams make faster and more profitable real estate decisions.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="feature-card">
+            <div class="icon">💰</div>
+            <h3>AI Rent Recommendations</h3>
+            <p>Set pricing based on location, asset class, building quality, occupancy, and market conditions instead of relying only on stale comps.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">📉</div>
+            <h3>Tenant Renewal Forecasting</h3>
+            <p>Estimate the likelihood that a tenant renews, downsizes, relocates, or becomes distressed before lease expiration arrives.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🧠</div>
+            <h3>Instant Deal Underwriting</h3>
+            <p>Generate projected NOI, IRR, rent upside, and risk flags in minutes to speed up acquisition and asset management workflows.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">⚠️</div>
+            <h3>Risk Monitoring</h3>
+            <p>Flag assets exposed to softening demand, weak tenants, over-market rents, or refinancing risk before performance starts to slip.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🏢</div>
+            <h3>Portfolio Visibility</h3>
+            <p>Compare properties across markets and surface the buildings with the biggest opportunity for pricing optimization or lease intervention.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">⚡</div>
+            <h3>Decision Automation</h3>
+            <p>Turn scattered data into clear recommendations so owners, REITs, developers, and private equity teams can act faster.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Interactive demo</h2>
+          <p>
+            This demo is perfect for a class project website because it shows how CRElytics would work in practice. Enter a few property details and generate pricing and risk outputs instantly.
+          </p>
+        </div>
+
+        <div class="demo-shell">
+          <div class="panel">
+            <h3 style="margin-top: 0; font-size: 1.35rem;">Analyze a Property</h3>
+            <p style="color: var(--muted); line-height: 1.7; margin-top: 8px; margin-bottom: 22px;">
+              Input a sample commercial real estate scenario to see how CRElytics recommends rent pricing, forecasts tenant renewal, and scores risk.
+            </p>
+
+            <div class="form-group">
+              <label for="market">Market</label>
+              <select id="market">
+                <option value="nashville">Nashville</option>
+                <option value="atlanta">Atlanta</option>
+                <option value="charlotte">Charlotte</option>
+                <option value="austin">Austin</option>
+                <option value="dallas">Dallas</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="assetType">Asset Type</label>
+              <select id="assetType">
+                <option value="office">Office</option>
+                <option value="retail">Retail</option>
+                <option value="industrial">Industrial</option>
+                <option value="multifamily">Multifamily</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="occupancy">Current Occupancy (%)</label>
+              <input id="occupancy" type="number" min="0" max="100" value="84" />
+            </div>
+
+            <div class="form-group">
+              <label for="rent">Current Asking Rent ($ / SF)</label>
+              <input id="rent" type="number" min="1" step="0.1" value="29" />
+            </div>
+
+            <div class="form-group">
+              <label for="tenantStrength">Tenant Credit Strength</label>
+              <select id="tenantStrength">
+                <option value="strong">Strong</option>
+                <option value="average" selected>Average</option>
+                <option value="weak">Weak</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="leaseTerm">Remaining Lease Term (years)</label>
+              <input id="leaseTerm" type="number" min="0" step="0.5" value="3" />
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; margin-top: 6px;" onclick="runAnalysis()">Run CRElytics Analysis</button>
+          </div>
+
+          <div class="panel">
+            <h3 style="margin-top: 0; font-size: 1.35rem;">CRElytics Output</h3>
+            <p style="color: var(--muted); line-height: 1.7; margin-top: 8px; margin-bottom: 18px;">
+              Your model outputs update dynamically based on the property inputs.
+            </p>
+
+            <div class="results-grid">
+              <div class="result-card">
+                <div class="result-label">Recommended Rent</div>
+                <div class="result-value" id="recommendedRent">$31.80 / SF</div>
+                <div class="result-note" id="rentNote">Pricing upside identified from market demand and current occupancy.</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">Renewal Probability</div>
+                <div class="result-value" id="renewalProbability">74%</div>
+                <div class="result-note" id="renewalNote">Moderate renewal outlook based on tenant profile and term remaining.</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">Projected IRR</div>
+                <div class="result-value" id="projectedIrr">12.4%</div>
+                <div class="result-note" id="irrNote">Improved by higher pricing and stronger lease retention assumptions.</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">Risk Score</div>
+                <div class="result-value score-low" id="riskScore">LOW</div>
+                <div class="result-note" id="riskNote">Asset fundamentals appear stable in this scenario.</div>
+              </div>
+            </div>
+
+            <div class="result-card" style="margin-top: 14px;">
+              <div class="result-label">AI Summary</div>
+              <div class="result-note" id="aiSummary" style="font-size: 1rem; color: var(--text);">
+                CRElytics recommends a moderate increase in asking rent while maintaining leasing flexibility. Current occupancy supports pricing power, but tenant retention should remain a focus over the next 12 months.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>How it works</h2>
+          <p>
+            CRElytics is designed to feel simple on the surface while creating high-value outputs for investment and operating teams.
+          </p>
+        </div>
+
+        <div class="how-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Input Property Data</h3>
+            <p style="color: var(--muted); line-height: 1.65; margin: 0;">Enter market, rent, occupancy, tenant quality, and lease details for any asset or portfolio segment.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Compare to Market Conditions</h3>
+            <p style="color: var(--muted); line-height: 1.65; margin: 0;">The platform benchmarks the asset against demand, pricing trends, and property-level performance assumptions.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Generate Recommendations</h3>
+            <p style="color: var(--muted); line-height: 1.65; margin: 0;">AI suggests rent changes, highlights renewal risk, and estimates how the asset may perform under current conditions.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Act Faster</h3>
+            <p style="color: var(--muted); line-height: 1.65; margin: 0;">Teams can adjust leasing strategy, flag at-risk tenants, and improve underwriting decisions before returns suffer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Simple pricing for every CRE team</h2>
+          <p>
+            This section makes the startup feel more realistic and investor-ready by showing how the company could actually make money.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>Starter</h3>
+            <div class="price">$199<span style="font-size: 1rem; color: var(--muted);"> / month</span></div>
+            <p>For independent brokers, small owners, and student demo environments.</p>
+            <ul>
+              <li>Property-level analysis</li>
+              <li>Rent recommendations</li>
+              <li>Basic tenant risk scoring</li>
+            </ul>
+            <a href="#demo" class="btn btn-secondary">Start Free Demo</a>
+          </div>
+
+          <div class="pricing-card featured">
+            <h3>Professional</h3>
+            <div class="price">$799<span style="font-size: 1rem; color: var(--muted);"> / month</span></div>
+            <p>For developers, operators, and investment teams managing multiple assets.</p>
+            <ul>
+              <li>Portfolio dashboards</li>
+              <li>Renewal forecasting</li>
+              <li>Underwriting outputs</li>
+              <li>Risk monitoring alerts</li>
+            </ul>
+            <a href="#demo" class="btn btn-primary">Most Popular</a>
+          </div>
+
+          <div class="pricing-card">
+            <h3>Enterprise</h3>
+            <div class="price">Custom</div>
+            <p>For REITs, private equity firms, and large asset managers that need a tailored solution.</p>
+            <ul>
+              <li>Custom integrations</li>
+              <li>Portfolio-wide analytics</li>
+              <li>API access</li>
+              <li>Dedicated support</li>
+            </ul>
+            <a href="#contact" class="btn btn-secondary">Contact Sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="container">
+        <div class="cta-card">
+          <div>
+            <h2>Commercial real estate needs a decision engine, not just more data.</h2>
+            <p>
+              CRElytics turns leasing and underwriting from manual guesswork into a smarter, faster, and more scalable workflow. This concept is designed to feel like a real startup while still being simple enough to present in class or host on GitHub Pages.
+            </p>
+          </div>
+          <a href="mailto:hello@crelytics.ai" class="btn btn-primary">Request a Demo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© 2026 CRElytics. Built for smarter commercial real estate decisions.</div>
+      <div>Single-file HTML demo site for GitHub Pages.</div>
+    </div>
+  </footer>
+
+  <script>
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function runAnalysis() {
+      const market = document.getElementById('market').value;
+      const assetType = document.getElementById('assetType').value;
+      const occupancy = parseFloat(document.getElementById('occupancy').value) || 0;
+      const rent = parseFloat(document.getElementById('rent').value) || 0;
+      const tenantStrength = document.getElementById('tenantStrength').value;
+      const leaseTerm = parseFloat(document.getElementById('leaseTerm').value) || 0;
+
+      const marketMultiplier = {
+        nashville: 1.04,
+        atlanta: 1.03,
+        charlotte: 1.02,
+        austin: 1.05,
+        dallas: 1.06
+      }[market];
+
+      const assetMultiplier = {
+        office: 1.02,
+        retail: 1.00,
+        industrial: 1.08,
+        multifamily: 1.04
+      }[assetType];
+
+      const tenantAdj = {
+        strong: 10,
+        average: 0,
+        weak: -12
+      }[tenantStrength];
+
+      const occupancyFactor = occupancy >= 92 ? 1.09 : occupancy >= 85 ? 1.05 : occupancy >= 75 ? 1.02 : 0.97;
+      const recommendedRent = rent * marketMultiplier * assetMultiplier * occupancyFactor;
+      const roundedRent = recommendedRent.toFixed(2);
+
+      let renewal = 50 + ((occupancy - 75) * 0.55) + (leaseTerm * 5.5) + tenantAdj;
+      if (assetType === 'office') renewal -= 4;
+      if (assetType === 'industrial') renewal += 5;
+      renewal = clamp(Math.round(renewal), 22, 94);
+
+      let irr = 8.2 + ((recommendedRent - rent) * 0.55) + ((occupancy - 80) * 0.12) + (leaseTerm * 0.45);
+      if (tenantStrength === 'strong') irr += 1.2;
+      if (tenantStrength === 'weak') irr -= 1.6;
+      if (assetType === 'office') irr -= 0.6;
+      if (assetType === 'industrial') irr += 0.9;
+      irr = clamp(irr, 6.1, 18.9).toFixed(1);
+
+      let riskPoints = 0;
+      if (occupancy < 80) riskPoints += 2;
+      else if (occupancy < 88) riskPoints += 1;
+      if (tenantStrength === 'weak') riskPoints += 2;
+      else if (tenantStrength === 'average') riskPoints += 1;
+      if (leaseTerm < 2) riskPoints += 2;
+      else if (leaseTerm < 4) riskPoints += 1;
+      if (assetType === 'office') riskPoints += 1;
+
+      let riskLabel = 'LOW';
+      let riskClass = 'score-low';
+      let riskNote = 'Asset fundamentals appear stable in this scenario.';
+      if (riskPoints >= 5) {
+        riskLabel = 'HIGH';
+        riskClass = 'score-high';
+        riskNote = 'Short lease term, weaker tenancy, or soft occupancy increase downside risk.';
+      } else if (riskPoints >= 3) {
+        riskLabel = 'MEDIUM';
+        riskClass = 'score-medium';
+        riskNote = 'There are manageable risks that should be monitored before pricing too aggressively.';
+      }
+
+      const rentChange = (((recommendedRent - rent) / Math.max(rent, 1)) * 100).toFixed(1);
+
+      document.getElementById('recommendedRent').textContent = `$${roundedRent} / SF`;
+      document.getElementById('rentNote').textContent = `${rentChange >= 0 ? 'Increase' : 'Decrease'} of ${Math.abs(rentChange)}% suggested based on market and occupancy signals.`;
+
+      document.getElementById('renewalProbability').textContent = `${renewal}%`;
+      document.getElementById('renewalNote').textContent = renewal >= 75
+        ? 'High renewal outlook based on lease position and tenant profile.'
+        : renewal >= 55
+        ? 'Moderate renewal outlook based on current assumptions.'
+        : 'Lower renewal outlook. Consider concessions or proactive outreach.';
+
+      document.getElementById('projectedIrr').textContent = `${irr}%`;
+      document.getElementById('irrNote').textContent = `Projected return reflects rent optimization, occupancy, and tenant quality assumptions.`;
+
+      const riskScoreEl = document.getElementById('riskScore');
+      riskScoreEl.textContent = riskLabel;
+      riskScoreEl.className = `result-value ${riskClass}`;
+      document.getElementById('riskNote').textContent = riskNote;
+
+      const summary = `CRElytics recommends ${rentChange >= 0 ? 'raising' : 'trimming'} asking rent to $${roundedRent} per square foot for this ${assetType} asset in ${market.charAt(0).toUpperCase() + market.slice(1)}. The tenant renewal outlook is ${renewal}% and overall risk is ${riskLabel.toLowerCase()}. Based on these assumptions, this asset appears ${riskLabel === 'HIGH' ? 'more defensive action may be needed before pushing rents aggressively.' : riskLabel === 'MEDIUM' ? 'positioned for selective pricing improvement with active leasing management.' : 'well-positioned for a measured pricing strategy with stable fundamentals.'}`;
+      document.getElementById('aiSummary').textContent = summary;
+    }
+
+    runAnalysis();
+  </script>
+</body>
+</html>
